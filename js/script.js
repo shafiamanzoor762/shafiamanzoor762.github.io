@@ -101,3 +101,56 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+
+
+
+
+
+// Fetch and render projects
+document.addEventListener('DOMContentLoaded', function() {
+// Replace the projects array with this:
+fetch('data/projects.json')
+  .then(response => response.json())
+  .then(projects => {
+    
+
+  const projectsContainer = document.getElementById('projects');
+  
+  // Clear any placeholder content
+  projectsContainer.querySelectorAll('.project').forEach(el => el.remove());
+  
+  // Render each project
+  projects.forEach(project => {
+    const projectEl = document.createElement('div');
+    projectEl.className = 'project animate__animated animate__fadeInUp';
+    
+    // Create cards HTML
+    const cardsHTML = project.cards.map(card => `
+      <a href="${card.link}" target="_blank" class="project-card animate__animated animate__fadeIn">
+        <img src="${card.image}" alt="${card.alt}" class="project-image">
+      </a>
+    `).join('');
+    
+    // Set project HTML
+    projectEl.innerHTML = `
+      <h3>${project.title}</h3>
+      <div class="project-cards">${cardsHTML}</div>
+      <p class="project-description">${project.description}</p>
+    `;
+    
+    projectsContainer.appendChild(projectEl);
+    
+    // Add staggered animation
+    const cards = projectEl.querySelectorAll('.project-card');
+    cards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+    });
+  });
+
+  })
+  .catch(error => console.error('Error loading projects:', error));
+
+
+});

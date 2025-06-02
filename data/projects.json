@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Photo Gallery Geo Tagging",
+    "description": "Mobile and Desktop app using SwiftUI, .NET C# and Python Flask",
+    "cards": [
+      {
+        "image": "images/project_cover/photo_gallery_mobile.png",
+        "link": "https://github.com/shafiamanzoor762/PhotoGallery-SQLite-",
+        "alt": "Mobile Application"
+      },
+      {
+        "image": "images/project_cover/photo_gallery_desktop.png",
+        "link": "https://github.com/shafiamanzoor762/photo-gallery-geotagging",
+        "alt": "Backend"
+      }
+    ]
+  },
+  {
+    "title": "Numerical Analysis",
+    "description": "Implemented numerical methods to solve mathematical problems",
+    "cards": [
+      {
+        "image": "images/project_cover/numerical_analysis.png",
+        "link": "https://github.com/shafiamanzoor762/numerical_analysis_flutter_mobile_app",
+        "alt": "Numerical Analysis"
+      }
+    ]
+  },
+    {
+    "title": "Compiler Construction",
+    "description": "Developed a compiler for a custom language using .NET C#",
+    "cards": [
+      {
+        "image": "images/project_cover/compiler_construction.png",
+        "link": "https://github.com/shafiamanzoor762/compiler-construction",
+        "alt": "Compiler Construction"
+      }
+    ]
+  },
+    {
+    "title": "Go Mart Gift Shop Desktop App",
+    "description": "Gift shop with features like product Management, Generating Bills...",
+    "cards": [
+      {
+        "image": "images/project_cover/go_mart.png",
+        "link": "https://github.com/shafiamanzoor762/My_Projects/tree/main/GoMartGiftStore",
+        "alt": "Weathering Desktop"
+      }
+    ]
+  },
+  {
+    "title": "Weathering Desktop App",
+    "description": "App to check the weather of any city using OpenWeatherMap API",
+    "cards": [
+      {
+        "image": "images/project_cover/weathering.png",
+        "link": "https://github.com/shafiamanzoor762/weather_app_.net",
+        "alt": "Weathering Desktop"
+      }
+    ]
+  }
+]
