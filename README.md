@@ -6,9 +6,8 @@ This is my personal portfolio website showcasing my skills, projects, and experi
 
 - Responsive design that works on all devices
 - Smooth animations and transitions
-- Sticky rounded navbar
+- Sticky navbar
 - Back to top button
-- GitHub repository cards
 - Interactive elements
 
 ## Technologies Used
