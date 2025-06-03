@@ -22,7 +22,7 @@ This is my personal portfolio website showcasing my skills, projects, and experi
 
 1. Clone this repository
 2. Open `index.html` in your browser
-3. Or visit the live version at [your-github-pages-link]
+3. Or visit the live version at (->)[https://shafiamanzoor762.github.io/]
 
 ## Customization
 
