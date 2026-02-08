@@ -11,9 +11,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- ADDED: Critical CSS fix for projects visibility -->
+    <style>
+        /* Force projects to be on top */
+        .projects-section-fix {
+            position: relative;
+            z-index: 100 !important;
+        }
+        .projects-grid-fix {
+            position: relative;
+            z-index: 101 !important;
+        }
+    </style>
 </head>
 <body>
-    <!-- Animated Background - FIXED POSITION -->
+    <!-- Animated Background -->
     <div class="animated-bg">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -110,36 +122,40 @@
             </div>
 
             <div class="about-grid">
-                <div class="about-card glass-card">
+                <div class="about-card glass-card animate-on-scroll">
                     <div class="card-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <h3>Current Projects</h3>
                     <p>Working on "PHOTOGALLERY: Geo Tagging with Windows Interface" - combining modern UI with geolocation features.</p>
+                    <div class="sparkle"></div>
                 </div>
 
-                <div class="about-card glass-card">
+                <div class="about-card glass-card animate-on-scroll">
                     <div class="card-icon">
                         <i class="fas fa-brain"></i>
                     </div>
                     <h3>Active Research</h3>
                     <p>Exploring "Face Recognition Models" with focus on high-accuracy results for children's facial data.</p>
+                    <div class="sparkle"></div>
                 </div>
 
-                <div class="about-card glass-card">
+                <div class="about-card glass-card animate-on-scroll">
                     <div class="card-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Specialization</h3>
                     <p>iOS App Development, scalable web applications, and intuitive mobile experiences using Swift & C#.</p>
+                    <div class="sparkle"></div>
                 </div>
 
-                <div class="about-card glass-card">
+                <div class="about-card glass-card animate-on-scroll">
                     <div class="card-icon">
                         <i class="fas fa-handshake"></i>
                     </div>
                     <h3>Collaboration</h3>
                     <p>Open to freelance projects and meaningful collaborations that push boundaries and solve real problems.</p>
+                    <div class="sparkle"></div>
                 </div>
             </div>
         </div>
@@ -154,90 +170,106 @@
             </div>
 
             <div class="skills-wrapper">
-                <div class="skill-category">
+                <div class="skill-category animate-on-scroll">
                     <h3 class="category-title">Languages</h3>
                     <div class="skills-grid">
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
                             <span>C#</span>
+                            <div class="skill-level" style="width: 95%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
                             <span>Python</span>
+                            <div class="skill-level" style="width: 90%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="Swift">
                             <span>Swift</span>
+                            <div class="skill-level" style="width: 92%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
                             <span>Java</span>
+                            <div class="skill-level" style="width: 88%"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category animate-on-scroll">
                     <h3 class="category-title">Frontend</h3>
                     <div class="skills-grid">
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
                             <span>HTML5</span>
+                            <div class="skill-level" style="width: 98%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
                             <span>CSS3</span>
+                            <div class="skill-level" style="width: 96%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
                             <span>Flutter</span>
+                            <div class="skill-level" style="width: 85%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
                             <span>JavaScript</span>
+                            <div class="skill-level" style="width: 92%"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category animate-on-scroll">
                     <h3 class="category-title">Tools & IDEs</h3>
                     <div class="skills-grid">
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xcode/xcode-original.svg" alt="Xcode">
                             <span>Xcode</span>
+                            <div class="skill-level" style="width: 94%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio">
                             <span>Visual Studio</span>
+                            <div class="skill-level" style="width: 96%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
                             <span>VS Code</span>
+                            <div class="skill-level" style="width: 98%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
                             <span>Git</span>
+                            <div class="skill-level" style="width: 93%"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category animate-on-scroll">
                     <h3 class="category-title">Databases</h3>
                     <div class="skills-grid">
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
                             <span>MySQL</span>
+                            <div class="skill-level" style="width: 92%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite">
                             <span>SQLite</span>
+                            <div class="skill-level" style="width: 90%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server">
                             <span>SQL Server</span>
+                            <div class="skill-level" style="width: 88%"></div>
                         </div>
                         <div class="skill-item glass-card">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
                             <span>MongoDB</span>
+                            <div class="skill-level" style="width: 85%"></div>
                         </div>
                     </div>
                 </div>
@@ -245,20 +277,16 @@
         </div>
     </section>
 
-    <!-- Projects Section - UPDATED WITH VISIBILITY FIX -->
-    <section id="projects" class="projects">
+    <!-- Projects Section - ADDED FIX CLASSES -->
+    <section id="projects" class="projects projects-section-fix">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Featured Projects</h2>
                 <p class="section-subtitle">Showcasing my best work and technical expertise</p>
             </div>
 
-            <div id="projects-container" class="projects-grid">
-                <!-- Projects will be loaded here by JavaScript -->
-                <div class="loading-projects">
-                    <div class="loading-spinner"></div>
-                    <p>Loading amazing projects...</p>
-                </div>
+            <div id="projects-container" class="projects-grid projects-grid-fix">
+                <!-- Projects loaded dynamically -->
             </div>
         </div>
     </section>
@@ -377,10 +405,8 @@
                 </div>
                 
                 <div class="github-images">
-                    <img src="https://github-readme-stats.vercel.app/api/top-langs?username=shafiamanzoor762&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dark&hide_border=true&order=2" 
-                         alt="Top Languages" class="github-stat-img">
-                    <img src="https://github-readme-streak-stats.herokuapp.com/?user=shafiamanzoor762&theme=dark&hide_border=true" 
-                         alt="GitHub Streak" class="github-stat-img">
+                    <img src="https://github-readme-stats.vercel.app/api/top-langs?username=shafiamanzoor762&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dark&hide_border=true&order=2" alt="Top Languages" class="github-stat-img">
+                    <img src="https://github-readme-streak-stats.herokuapp.com/?user=shafiamanzoor762&theme=dark&hide_border=true" alt="GitHub Streak" class="github-stat-img">
                 </div>
             </div>
         </div>
@@ -412,7 +438,52 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="js/script.js"></script>
+    <script>
+        // Enhanced project loading
+        async function loadProjects() {
+            try {
+                const response = await fetch('data/projects.json');
+                const projects = await response.json();
+                const container = document.getElementById('projects-container');
+                
+                container.innerHTML = '';
+                
+                projects.forEach((project, index) => {
+                    const projectEl = document.createElement('div');
+                    projectEl.className = `project animate-on-scroll`;
+                    projectEl.style.animationDelay = `${index * 0.1}s`;
+                    
+                    const cardsHTML = project.cards.map((card, cardIndex) => `
+                        <a href="${card.link}" target="_blank" rel="noopener" class="project-card" style="animation-delay: ${cardIndex * 0.1}s">
+                            <div class="project-image-container">
+                                <img src="${card.image}" alt="${card.alt}" class="project-image">
+                                <div class="project-overlay">
+                                    <span class="view-btn">
+                                        <i class="fab fa-github"></i>
+                                        View on GitHub
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    `).join('');
+                    
+                    projectEl.innerHTML = `
+                        <h3>${project.title}</h3>
+                        <div class="project-cards">
+                            ${cardsHTML}
+                        </div>
+                        <p class="project-description">${project.description}</p>
+                    `;
+                    
+                    container.appendChild(projectEl);
+                });
+            } catch (error) {
+                console.error('Error loading projects:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProjects);
+    </script>
 </body>
 </html>
