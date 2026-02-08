@@ -24,39 +24,210 @@ function initMobileMenu() {
 }
 
 // ===== Load Projects from JSON =====
+// async function loadProjects() {
+//     try {
+//         console.log('🚀 Loading projects...');
+//         const response = await fetch('data/projects.json');
+        
+//         if (!response.ok) {
+//             throw new Error(`Failed to load: ${response.status}`);
+//         }
+        
+//         const projects = await response.json();
+//         console.log('✅ Projects loaded:', projects.length);
+        
+//         const container = document.getElementById('projects-container');
+//         if (!container) {
+//             console.error('Projects container not found!');
+//             return;
+//         }
+        
+//         // Clear loading message
+//         container.innerHTML = '';
+        
+//         projects.forEach((project, index) => {
+//             const projectEl = document.createElement('div');
+//             projectEl.className = 'project animate-on-scroll';
+//             projectEl.style.animationDelay = `${index * 0.1}s`;
+            
+//             // Build cards HTML - Using local images from project_cover folder
+//             const cardsHTML = project.cards.map((card, cardIndex) => `
+//                 <a href="${card.link}" target="_blank" rel="noopener noreferrer" class="project-card" style="animation-delay: ${cardIndex * 0.1}s">
+//                     <div class="project-image-container">
+//                         <!-- Check if image exists, otherwise use placeholder -->
+//                         <img src="${card.image}" alt="${card.alt}" class="project-image" loading="lazy" 
+//                              onerror="this.src='https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title)}'">
+//                         <div class="project-overlay">
+//                             <span class="view-btn">
+//                                 <i class="fab fa-github"></i>
+//                                 View on GitHub
+//                             </span>
+//                         </div>
+//                     </div>
+//                 </a>
+//             `).join('');
+            
+//             projectEl.innerHTML = `
+//                 <h3>${project.title}</h3>
+//                 <div class="project-cards">
+//                     ${cardsHTML}
+//                 </div>
+//                 <p class="project-description">${project.description}</p>
+//             `;
+            
+//             container.appendChild(projectEl);
+//         });
+        
+//         console.log('✨ All projects displayed successfully!');
+//         initScrollAnimations(); // Re-initialize animations for new elements
+        
+//     } catch (error) {
+//         console.error('❌ Error loading projects:', error);
+//         const container = document.getElementById('projects-container');
+//         if (container) {
+//             container.innerHTML = `
+//                 <div class="error-message" style="text-align: center; padding: 4rem; color: #aaa;">
+//                     <h3>Unable to Load Projects</h3>
+//                     <p>There was an error loading the project data. Please check:</p>
+//                     <ul style="text-align: left; display: inline-block; margin: 1rem 0;">
+//                         <li>The data/projects.json file exists</li>
+//                         <li>The JSON format is correct</li>
+//                         <li>Your internet connection is working</li>
+//                     </ul>
+//                     <button onclick="loadProjects()" class="btn btn-primary" style="margin-top: 1rem;">
+//                         <i class="fas fa-redo"></i> Try Again
+//                     </button>
+//                 </div>
+//             `;
+//         }
+//     }
+// }
+
+
+
+
+
+// ===== Enhanced Load Projects with Error Handling =====
 async function loadProjects() {
     try {
         console.log('🚀 Loading projects...');
-        const response = await fetch('data/projects.json');
-        
-        if (!response.ok) {
-            throw new Error(`Failed to load: ${response.status}`);
-        }
-        
-        const projects = await response.json();
-        console.log('✅ Projects loaded:', projects.length);
-        
         const container = document.getElementById('projects-container');
+        
         if (!container) {
-            console.error('Projects container not found!');
+            console.error('❌ Projects container not found!');
             return;
         }
         
-        // Clear loading message
-        container.innerHTML = '';
+        // Show loading state
+        container.classList.add('loading');
         
-        projects.forEach((project, index) => {
-            const projectEl = document.createElement('div');
-            projectEl.className = 'project animate-on-scroll';
-            projectEl.style.animationDelay = `${index * 0.1}s`;
-            
-            // Build cards HTML - Using local images from project_cover folder
-            const cardsHTML = project.cards.map((card, cardIndex) => `
-                <a href="${card.link}" target="_blank" rel="noopener noreferrer" class="project-card" style="animation-delay: ${cardIndex * 0.1}s">
+        // Try multiple fallback methods for loading projects
+        let projects = [];
+        
+        // Method 1: Try fetching from JSON file
+        try {
+            const response = await fetch('data/projects.json');
+            if (!response.ok) throw new Error('JSON fetch failed');
+            projects = await response.json();
+            console.log('✅ Projects loaded from JSON:', projects.length);
+        } 
+        // Method 2: Fallback to inline data if fetch fails
+        catch (fetchError) {
+            console.warn('⚠️ Using fallback project data');
+            projects = getFallbackProjects();
+        }
+        
+        // Clear container and remove loading state
+        container.innerHTML = '';
+        container.classList.remove('loading');
+        
+        if (!projects || projects.length === 0) {
+            showNoProjectsMessage(container);
+            return;
+        }
+        
+        // Render all projects
+        renderProjects(container, projects);
+        
+        console.log('✨ All projects displayed successfully!');
+        initScrollAnimations(); // Re-initialize animations for new elements
+        
+    } catch (error) {
+        console.error('❌ Error loading projects:', error);
+        showErrorMessage(error);
+    }
+}
+
+// ===== Helper Functions =====
+function getFallbackProjects() {
+    return [
+        {
+            "title": "Photogallery: Geo Tagging with Windows Interface",
+            "description": "A Windows application for managing photos with geolocation tagging features, built with C# and Windows Forms.",
+            "cards": [
+                {
+                    "link": "https://github.com/shafiamanzoor762/Photogallery-Geo-Tagging",
+                    "image": "images/project_covers/photogallery.png",
+                    "alt": "Photogallery Application"
+                },
+                {
+                    "link": "https://github.com/shafiamanzoor762/Photogallery-Geo-Tagging",
+                    "image": "images/project_covers/geotagging.png",
+                    "alt": "Geo Tagging Feature"
+                }
+            ]
+        },
+        {
+            "title": "Face Recognition Models Research",
+            "description": "Research project focused on high-accuracy face recognition models, particularly for children's facial data.",
+            "cards": [
+                {
+                    "link": "https://github.com/shafiamanzoor762/Face-Recognition-Models",
+                    "image": "images/project_covers/facerecognition.png",
+                    "alt": "Face Recognition Model"
+                },
+                {
+                    "link": "https://github.com/shafiamanzoor762/Face-Recognition-Models",
+                    "image": "images/project_covers/ai-research.png",
+                    "alt": "AI Research"
+                }
+            ]
+        },
+        {
+            "title": "iOS Mobile Applications",
+            "description": "Collection of iOS applications built with Swift and SwiftUI, featuring modern UI/UX designs.",
+            "cards": [
+                {
+                    "link": "https://github.com/shafiamanzoor762/iOS-Apps",
+                    "image": "images/project_covers/ios-app.png",
+                    "alt": "iOS Application"
+                },
+                {
+                    "link": "https://github.com/shafiamanzoor762/iOS-Apps",
+                    "image": "images/project_covers/swiftui.png",
+                    "alt": "SwiftUI Interface"
+                }
+            ]
+        }
+    ];
+}
+
+function renderProjects(container, projects) {
+    projects.forEach((project, index) => {
+        const projectEl = document.createElement('div');
+        projectEl.className = 'project animate-on-scroll';
+        projectEl.style.animationDelay = `${index * 0.1}s`;
+        
+        // Handle image fallbacks
+        const cardsHTML = project.cards.map((card, cardIndex) => {
+            const imgSrc = card.image || `https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title)}`;
+            return `
+                <a href="${card.link}" target="_blank" rel="noopener noreferrer" 
+                   class="project-card" style="animation-delay: ${cardIndex * 0.1}s">
                     <div class="project-image-container">
-                        <!-- Check if image exists, otherwise use placeholder -->
-                        <img src="${card.image}" alt="${card.alt}" class="project-image" loading="lazy" 
-                             onerror="this.src='https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title)}'">
+                        <img src="${imgSrc}" alt="${card.alt}" class="project-image" 
+                             loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title.split(' ')[0])}'">
                         <div class="project-overlay">
                             <span class="view-btn">
                                 <i class="fab fa-github"></i>
@@ -65,43 +236,116 @@ async function loadProjects() {
                         </div>
                     </div>
                 </a>
-            `).join('');
-            
-            projectEl.innerHTML = `
-                <h3>${project.title}</h3>
-                <div class="project-cards">
-                    ${cardsHTML}
-                </div>
-                <p class="project-description">${project.description}</p>
             `;
-            
-            container.appendChild(projectEl);
-        });
+        }).join('');
         
-        console.log('✨ All projects displayed successfully!');
-        initScrollAnimations(); // Re-initialize animations for new elements
+        projectEl.innerHTML = `
+            <h3>${project.title}</h3>
+            <div class="project-cards">
+                ${cardsHTML}
+            </div>
+            <p class="project-description">${project.description}</p>
+        `;
         
-    } catch (error) {
-        console.error('❌ Error loading projects:', error);
-        const container = document.getElementById('projects-container');
-        if (container) {
-            container.innerHTML = `
-                <div class="error-message" style="text-align: center; padding: 4rem; color: #aaa;">
-                    <h3>Unable to Load Projects</h3>
-                    <p>There was an error loading the project data. Please check:</p>
-                    <ul style="text-align: left; display: inline-block; margin: 1rem 0;">
-                        <li>The data/projects.json file exists</li>
-                        <li>The JSON format is correct</li>
-                        <li>Your internet connection is working</li>
-                    </ul>
-                    <button onclick="loadProjects()" class="btn btn-primary" style="margin-top: 1rem;">
+        container.appendChild(projectEl);
+    });
+}
+
+function showNoProjectsMessage(container) {
+    container.innerHTML = `
+        <div class="no-projects-message" style="text-align: center; padding: 4rem; color: var(--text-light);">
+            <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--primary);">
+                <i class="fas fa-code-branch"></i>
+            </div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Projects Coming Soon</h3>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                I'm currently working on some amazing projects. Check back soon!
+            </p>
+            <button onclick="loadProjects()" class="btn btn-primary">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+    `;
+}
+
+function showErrorMessage(error) {
+    const container = document.getElementById('projects-container');
+    if (container) {
+        container.classList.remove('loading');
+        container.innerHTML = `
+            <div class="error-message" style="text-align: center; padding: 4rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--secondary);">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 style="color: var(--text-light); margin-bottom: 1rem;">Unable to Load Projects</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                    ${error.message || 'There was an error loading the project data.'}
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button onclick="loadProjects()" class="btn btn-primary">
                         <i class="fas fa-redo"></i> Try Again
                     </button>
+                    <button onclick="location.reload()" class="btn btn-secondary">
+                        <i class="fas fa-sync"></i> Reload Page
+                    </button>
                 </div>
-            `;
-        }
+            </div>
+        `;
     }
 }
+
+// ===== Initialize Everything with Projects Priority =====
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Portfolio initializing with projects priority...');
+    
+    // Initialize preloader first
+    initPreloader();
+    
+    // Load projects FIRST before other animations
+    setTimeout(() => {
+        loadProjects().then(() => {
+            console.log('✅ Projects loaded successfully');
+        }).catch(err => {
+            console.error('❌ Failed to load projects:', err);
+        });
+    }, 100);
+    
+    // Initialize other features
+    initMobileMenu();
+    initSmoothScroll();
+    initBackToTop();
+    initNavbarScroll();
+    initParallax();
+    initParticles();
+    initTypingEffect();
+    initCursorEffect();
+    initScrollAnimations();
+    
+    console.log('✨ Portfolio ready!');
+});
+
+// ===== Add manual reload function =====
+window.reloadProjects = loadProjects;
+
+// ===== Force projects visibility on window load =====
+window.addEventListener('load', () => {
+    // Ensure projects section is visible
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+        projectsSection.style.opacity = '1';
+        projectsSection.style.visibility = 'visible';
+        projectsSection.style.transform = 'translateY(0)';
+    }
+    
+    // Double-check projects after 2 seconds
+    setTimeout(() => {
+        const projectsContainer = document.getElementById('projects-container');
+        if (projectsContainer && projectsContainer.children.length === 0) {
+            console.log('⚠️ No projects found, retrying...');
+            loadProjects();
+        }
+    }, 2000);
+});
 
 // ===== Smooth Scrolling =====
 function initSmoothScroll() {
