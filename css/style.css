@@ -2001,3 +2001,72 @@ section {
         opacity: 0;
     }
 }
+
+
+
+
+
+/* ========= Project Updated Section ========== */
+/* ===== CRITICAL FIXES FOR PROJECTS VISIBILITY ===== */
+
+/* Force projects section to be on top */
+#projects.projects-section-fix {
+    position: relative;
+    z-index: 100 !important;
+    transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Force projects grid to be on top */
+.projects-grid-fix {
+    position: relative;
+    z-index: 101 !important;
+    transform: translateZ(0);
+}
+
+/* Ensure animated background stays behind everything */
+.animated-bg {
+    z-index: -100 !important; /* Negative value to ensure it stays behind */
+}
+
+/* Ensure all content sections have proper z-index */
+section {
+    position: relative;
+    z-index: 10;
+}
+
+/* Fix container z-index */
+.container {
+    position: relative;
+    z-index: 20;
+}
+
+/* Ensure projects are visible on all devices */
+.project {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Fallback for projects if animations fail */
+#projects-container {
+    min-height: 400px;
+    position: relative;
+}
+
+#projects-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--primary);
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+#projects-container.loading::after {
+    display: block;
+}
