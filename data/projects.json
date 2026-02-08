@@ -1,7 +1,7 @@
 [
   {
     "title": "Photo Gallery Geo Tagging",
-    "description": "Mobile and Desktop app using SwiftUI, .NET C# and Python Flask",
+    "description": "A comprehensive multimedia application combining iOS (SwiftUI), Desktop (.NET C#), and Backend (Python Flask) technologies. Features real-time geolocation tagging, cloud storage integration, and advanced image processing.",
     "cards": [
       {
         "image": "images/project_cover/photo_gallery_mobile.png",
@@ -11,24 +11,24 @@
       {
         "image": "images/project_cover/photo_gallery_desktop.png",
         "link": "https://github.com/shafiamanzoor762/photo-gallery-geotagging",
-        "alt": "Backend"
+        "alt": "Backend & API"
       }
     ]
   },
   {
     "title": "Numerical Analysis",
-    "description": "Implemented numerical methods to solve mathematical problems",
+    "description": "Mobile application implementing advanced numerical methods to solve mathematical problems. Built with Flutter for cross-platform compatibility, featuring real-time calculations, visualization of results, and comprehensive documentation.",
     "cards": [
       {
         "image": "images/project_cover/numerical_analysis.png",
         "link": "https://github.com/shafiamanzoor762/numerical_analysis_flutter_mobile_app",
-        "alt": "Numerical Analysis"
+        "alt": "Numerical Analysis App"
       }
     ]
   },
-    {
+  {
     "title": "Compiler Construction",
-    "description": "Developed a compiler for a custom language using .NET C#",
+    "description": "A complete compiler implementation for a custom programming language built with .NET C#. Includes lexical analysis, syntax parsing, semantic analysis, and code generation. Demonstrates deep understanding of language design and compiler architecture.",
     "cards": [
       {
         "image": "images/project_cover/compiler_construction.png",
@@ -37,25 +37,25 @@
       }
     ]
   },
-    {
-    "title": "Go Mart Gift Shop Desktop App",
-    "description": "Gift shop with features like product Management, Generating Bills...",
+  {
+    "title": "Go Mart Gift Shop",
+    "description": "Desktop application for gift shop management with features like product inventory management, customer relationship management, bill generation, and sales analytics. Built with Windows Forms and SQL Server database.",
     "cards": [
       {
         "image": "images/project_cover/go_mart.png",
         "link": "https://github.com/shafiamanzoor762/My_Projects/tree/main/GoMartGiftStore",
-        "alt": "Weathering Desktop"
+        "alt": "Go Mart Desktop App"
       }
     ]
   },
   {
     "title": "Weathering Desktop App",
-    "description": "App to check the weather of any city using OpenWeatherMap API",
+    "description": "Real-time weather application that fetches current weather data for any city using the OpenWeatherMap API. Features temperature visualization, weather forecasts, air quality index, and an intuitive Windows Forms interface.",
     "cards": [
       {
         "image": "images/project_cover/weathering.png",
         "link": "https://github.com/shafiamanzoor762/weather_app_.net",
-        "alt": "Weathering Desktop"
+        "alt": "Weather Desktop App"
       }
     ]
   }
