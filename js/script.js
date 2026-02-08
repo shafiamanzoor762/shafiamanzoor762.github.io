@@ -42,18 +42,21 @@ async function loadProjects() {
             return;
         }
         
-        container.innerHTML = ''; // Clear
+        // Clear loading message
+        container.innerHTML = '';
         
         projects.forEach((project, index) => {
             const projectEl = document.createElement('div');
             projectEl.className = 'project animate-on-scroll';
             projectEl.style.animationDelay = `${index * 0.1}s`;
             
-            // Build cards HTML
+            // Build cards HTML - Using local images from project_cover folder
             const cardsHTML = project.cards.map((card, cardIndex) => `
                 <a href="${card.link}" target="_blank" rel="noopener noreferrer" class="project-card" style="animation-delay: ${cardIndex * 0.1}s">
                     <div class="project-image-container">
-                        <img src="${card.image}" alt="${card.alt}" class="project-image" loading="lazy">
+                        <!-- Check if image exists, otherwise use placeholder -->
+                        <img src="${card.image}" alt="${card.alt}" class="project-image" loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title)}'">
                         <div class="project-overlay">
                             <span class="view-btn">
                                 <i class="fab fa-github"></i>
@@ -76,17 +79,23 @@ async function loadProjects() {
         });
         
         console.log('✨ All projects displayed successfully!');
-        initScrollAnimations();
+        initScrollAnimations(); // Re-initialize animations for new elements
         
     } catch (error) {
         console.error('❌ Error loading projects:', error);
         const container = document.getElementById('projects-container');
         if (container) {
             container.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: #aaa;">
-                    <p>Could not load projects. Please check your internet connection.</p>
-                    <button onclick="loadProjects()" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">
-                        Retry
+                <div class="error-message" style="text-align: center; padding: 4rem; color: #aaa;">
+                    <h3>Unable to Load Projects</h3>
+                    <p>There was an error loading the project data. Please check:</p>
+                    <ul style="text-align: left; display: inline-block; margin: 1rem 0;">
+                        <li>The data/projects.json file exists</li>
+                        <li>The JSON format is correct</li>
+                        <li>Your internet connection is working</li>
+                    </ul>
+                    <button onclick="loadProjects()" class="btn btn-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-redo"></i> Try Again
                     </button>
                 </div>
             `;
