@@ -230,9 +230,9 @@ function renderProjects(container, projects) {
                              onerror="this.src='https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title.split(' ')[0])}'">
                         <div class="project-overlay">
                             <span class="view-btn">
-                                <i class="fab fa-github"></i>
-                                View on GitHub
-                            </span>
+                                // <i class="fab fa-github"></i>
+                                View Project
+                            // </span>
                         </div>
                     </div>
                 </a>
