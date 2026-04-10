@@ -1,5 +1,64 @@
 [
   {
+    "title": "E-Shaafi",
+    "description": "EShaafi is Healthcare and telemedicine app used by doctors and patients to connect with each other all over the Pakistan.",
+    "cards": [
+      {
+        "image": "images/project_cover/e_shaafi1.png",
+        "link": "https://apps.apple.com/pk/app/eshaafi-health-telemedicine/id6739331112",
+        "alt": "E-Shaafi"
+      },
+      {
+        "image": "images/project_cover/e_shaafi2.png",
+        "link": "https://apps.apple.com/pk/app/eshaafi-health-telemedicine/id6739331112",
+        "alt": "E-Shaafi"
+      }
+    ]
+  },
+  {
+    "title": "Imagine AI",
+    "description": "A mobile app built with UIKit framework. It uses AI to generate text, images, and videos.",
+    "cards": [
+      {
+        "image": "images/project_cover/imagine_ai1.png",
+        "link": "https://apps.apple.com/us/app/imagine-ai-ai-video-generator/id6450603126",
+        "alt": "Imagine AI"
+      },
+      {
+        "image": "images/project_cover/imagine_ai2.png",
+        "link": "https://apps.apple.com/us/app/imagine-ai-ai-video-generator/id6450603126",
+        "alt": "Imagine AI"
+      }
+    ]
+  },
+  {
+    "title": "Playground AI",
+    "description": "A playground for AI elements. It uses AI to generate text, images, and videos. A mobile app built with UIKit framework.",
+    "cards": [
+      {
+        "image": "images/project_cover/playground_ai.png",
+        "link": "https://apps.apple.com/us/app/playground-ai-photo-generator/id6443653724",
+        "alt": "Playground AI"
+      }
+    ]
+  },
+  {
+    "title": "Pixel Ai Video Effects",
+    "description": "A video generator that uses AI to create videos from text. It uses the Pixel and Wavespeed API to generate videos from text.",
+    "cards": [
+      {
+        "image": "images/project_cover/pixel_ai_video_generator1.png",
+        "link": "https://apps.apple.com/mv/app/pixel-ai-video-effects/id6754627347",
+        "alt": "Pixel Ai Video Effects"
+      },
+      {
+        "image": "images/project_cover/pixel_ai_video_generator2.png",
+        "link": "https://apps.apple.com/mv/app/pixel-ai-video-effects/id6754627347",
+        "alt": "Pixel Ai Video Effects"
+      }
+    ]
+  },
+  {
     "title": "Photo Gallery Geo Tagging",
     "description": "A comprehensive multimedia application combining iOS (SwiftUI), Desktop (.NET C#), and Backend (Python Flask) technologies. Features real-time geolocation tagging, cloud storage integration, and advanced image processing.",
     "cards": [
