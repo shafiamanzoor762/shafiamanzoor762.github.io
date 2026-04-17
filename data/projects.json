@@ -1,7 +1,7 @@
 [
   {
     "title": "E-Shaafi",
-    "description": "EShaafi is Healthcare and telemedicine app used by doctors and patients to connect with each other all over the Pakistan.",
+    "description": "EShaafi is Healthcare and telemedicine app used by doctors and patients to connect with each other all over the Pakistan. URL: https://apps.apple.com/pk/app/eshaafi-health-telemedicine/id6739331112",
     "cards": [
       {
         "image": "images/project_cover/e_shaafi1.png",
@@ -17,7 +17,7 @@
   },
   {
     "title": "Imagine AI",
-    "description": "A mobile app built with UIKit framework. It uses AI to generate text, images, and videos.",
+    "description": "A mobile app built with UIKit framework. It uses AI to generate text, images, and videos. URL: https://apps.apple.com/us/app/imagine-ai-ai-video-generator/id6450603126",
     "cards": [
       {
         "image": "images/project_cover/imagine_ai1.png",
@@ -33,7 +33,7 @@
   },
   {
     "title": "Playground AI",
-    "description": "A playground for AI elements. It uses AI to generate text, images, and videos. A mobile app built with UIKit framework.",
+    "description": "A playground for AI elements. It uses AI to generate text, images, and videos. A mobile app built with UIKit framework. URL: https://apps.apple.com/us/app/playground-ai-photo-generator/id6443653724",
     "cards": [
       {
         "image": "images/project_cover/playground_ai.png",
@@ -44,7 +44,7 @@
   },
   {
     "title": "Pixel Ai Video Effects",
-    "description": "A video generator that uses AI to create videos from text. It uses the Pixel and Wavespeed API to generate videos from text.",
+    "description": "A video generator that uses AI to create videos from text. It uses the Pixel and Wavespeed API to generate videos from text. URL: https://apps.apple.com/mv/app/pixel-ai-video-effects/id6754627347",
     "cards": [
       {
         "image": "images/project_cover/pixel_ai_video_generator1.png",
