@@ -106,7 +106,7 @@ async function loadExperience() {
                 </div>
                 <div class="exp-description">${exp.description}</div>
                 <div class="exp-tech">
-                    ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                    ${exp.skills.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                 </div>
             `;
             container.appendChild(div);
