@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Full-Stack Developer",
+        "company": "Freelance / Self-Employed",
+        "period": "2024 – Present",
+        "description": "Designing and developing responsive web applications, iOS utilities, and Windows desktop tools. Collaborated with clients to deliver MVPs and scalable solutions.",
+        "technologies": ["C#", "Swift", "Python", "Flutter", "React", "SQLite"]
+    },
+    {
+        "title": "Junior Developer (Internship)",
+        "company": "TechStudio Pakistan",
+        "period": "2023 – 2024",
+        "description": "Assisted in building internal tools, performed bug fixes, and contributed to front-end components. Gained hands-on experience with agile workflows and version control.",
+        "technologies": ["JavaScript", "HTML/CSS", "Git", "ASP.NET Core", "MySQL"]
+    }
+]

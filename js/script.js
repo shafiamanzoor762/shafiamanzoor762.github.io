@@ -1,603 +1,125 @@
-// ===== DOM Elements =====
+// DOM Elements
 const navbar = document.querySelector('.navbar');
 const navbarToggler = document.querySelector('.navbar-toggler');
 const navbarCollapse = document.querySelector('.navbar-collapse');
 const navLinks = document.querySelectorAll('.nav-link');
 const backToTopBtn = document.getElementById('back-to-top');
-const body = document.body;
 
-// ===== Mobile Menu =====
-function initMobileMenu() {
-    navbarToggler.addEventListener('click', () => {
-        navbarToggler.classList.toggle('active');
-        navbarCollapse.classList.toggle('show');
-        body.style.overflow = navbarCollapse.classList.contains('show') ? 'hidden' : '';
-    });
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navbarToggler.classList.remove('active');
-            navbarCollapse.classList.remove('show');
-            body.style.overflow = '';
-        });
-    });
-}
+// Mobile menu
+navbarToggler?.addEventListener('click', () => {
+    navbarToggler.classList.toggle('active');
+    navbarCollapse.classList.toggle('show');
+    document.body.style.overflow = navbarCollapse.classList.contains('show') ? 'hidden' : '';
+});
+navLinks.forEach(link => link.addEventListener('click', () => {
+    navbarToggler.classList.remove('active');
+    navbarCollapse.classList.remove('show');
+    document.body.style.overflow = '';
+}));
 
-// ===== Enhanced Load Projects with Error Handling =====
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+        }
+    });
+});
+
+// Back to top
+window.addEventListener('scroll', () => {
+    backToTopBtn?.classList.toggle('show', window.scrollY > 500);
+});
+backToTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    navbar?.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// Load Projects from JSON
 async function loadProjects() {
-    try {
-        console.log('🚀 Loading projects...');
-        const container = document.getElementById('projects-container');
-        
-        if (!container) {
-            console.error('❌ Projects container not found!');
-            return;
-        }
-        
-        // Show loading state
-        container.classList.add('loading');
-        
-        // Try multiple fallback methods for loading projects
-        let projects = [];
-        
-        // Method 1: Try fetching from JSON file
-        try {
-            const response = await fetch('data/projects.json');
-            if (!response.ok) throw new Error('JSON fetch failed');
-            projects = await response.json();
-            console.log('✅ Projects loaded from JSON:', projects.length);
-        } 
-        // Method 2: Fallback to inline data if fetch fails
-        catch (fetchError) {
-            console.warn('⚠️ Using fallback project data');
-            projects = getFallbackProjects();
-        }
-        
-        // Clear container and remove loading state
-        container.innerHTML = '';
-        container.classList.remove('loading');
-        
-        if (!projects || projects.length === 0) {
-            showNoProjectsMessage(container);
-            return;
-        }
-        
-        // Render all projects
-        renderProjects(container, projects);
-        
-        console.log('✨ All projects displayed successfully!');
-        initScrollAnimations(); // Re-initialize animations for new elements
-        
-    } catch (error) {
-        console.error('❌ Error loading projects:', error);
-        showErrorMessage(error);
-    }
-}
-
-// ===== Helper Functions =====
-function getFallbackProjects() {
-    return [
-        {
-            "title": "Photogallery: Geo Tagging with Windows Interface",
-            "description": "A Windows application for managing photos with geolocation tagging features, built with C# and Windows Forms.",
-            "cards": [
-                {
-                    "link": "https://github.com/shafiamanzoor762/Photogallery-Geo-Tagging",
-                    "image": "images/project_covers/photogallery.png",
-                    "alt": "Photogallery Application"
-                },
-                {
-                    "link": "https://github.com/shafiamanzoor762/Photogallery-Geo-Tagging",
-                    "image": "images/project_covers/geotagging.png",
-                    "alt": "Geo Tagging Feature"
-                }
-            ]
-        },
-        {
-            "title": "Face Recognition Models Research",
-            "description": "Research project focused on high-accuracy face recognition models, particularly for children's facial data.",
-            "cards": [
-                {
-                    "link": "https://github.com/shafiamanzoor762/Face-Recognition-Models",
-                    "image": "images/project_covers/facerecognition.png",
-                    "alt": "Face Recognition Model"
-                },
-                {
-                    "link": "https://github.com/shafiamanzoor762/Face-Recognition-Models",
-                    "image": "images/project_covers/ai-research.png",
-                    "alt": "AI Research"
-                }
-            ]
-        },
-        {
-            "title": "iOS Mobile Applications",
-            "description": "Collection of iOS applications built with Swift and SwiftUI, featuring modern UI/UX designs.",
-            "cards": [
-                {
-                    "link": "https://github.com/shafiamanzoor762/iOS-Apps",
-                    "image": "images/project_covers/ios-app.png",
-                    "alt": "iOS Application"
-                },
-                {
-                    "link": "https://github.com/shafiamanzoor762/iOS-Apps",
-                    "image": "images/project_covers/swiftui.png",
-                    "alt": "SwiftUI Interface"
-                }
-            ]
-        }
-    ];
-}
-
-function renderProjects(container, projects) {
-    projects.forEach((project, index) => {
-        const projectEl = document.createElement('div');
-        projectEl.className = 'project animate-on-scroll';
-        projectEl.style.animationDelay = `${index * 0.1}s`;
-        
-        // Handle image fallbacks
-        const cardsHTML = project.cards.map((card, cardIndex) => {
-            const imgSrc = card.image || `https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title)}`;
-            return `
-                <a href="${card.link}" target="_blank" rel="noopener noreferrer" 
-                   class="project-card" style="animation-delay: ${cardIndex * 0.1}s">
-                    <div class="project-image-container">
-                        <img src="${imgSrc}" alt="${card.alt}" class="project-image" 
-                             loading="lazy" 
-                             onerror="this.src='https://via.placeholder.com/400x300/7F55B1/FFFFFF?text=${encodeURIComponent(project.title.split(' ')[0])}'">
-                        <div class="project-overlay">
-                            <span class="view-btn">
-                                View Project
-                            </span>
-                        </div>
-                    </div>
-                </a>
-            `;
-        }).join('');
-        
-        projectEl.innerHTML = `
-            <h3>${project.title}</h3>
-            <div class="project-cards">
-                ${cardsHTML}
-            </div>
-            <p class="project-description">${project.description}</p>
-        `;
-        
-        container.appendChild(projectEl);
-    });
-}
-
-function showNoProjectsMessage(container) {
-    container.innerHTML = `
-        <div class="no-projects-message" style="text-align: center; padding: 4rem; color: var(--text-light);">
-            <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--primary);">
-                <i class="fas fa-code-branch"></i>
-            </div>
-            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Projects Coming Soon</h3>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">
-                I'm currently working on some amazing projects. Check back soon!
-            </p>
-            <button onclick="loadProjects()" class="btn btn-primary">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-        </div>
-    `;
-}
-
-function showErrorMessage(error) {
     const container = document.getElementById('projects-container');
-    if (container) {
-        container.classList.remove('loading');
-        container.innerHTML = `
-            <div class="error-message" style="text-align: center; padding: 4rem;">
-                <div style="font-size: 4rem; margin-bottom: 1rem; color: var(--secondary);">
-                    <i class="fas fa-exclamation-triangle"></i>
+    if (!container) return;
+    try {
+        const res = await fetch('data/projects.json');
+        const projects = await res.json();
+        container.innerHTML = '';
+        projects.forEach((project, i) => {
+            const div = document.createElement('div');
+            div.className = 'project animate-on-scroll';
+            div.style.animationDelay = `${i * 0.1}s`;
+            div.innerHTML = `
+                <h3>${project.title}</h3>
+                <div class="project-cards">
+                    ${project.cards.map(card => `
+                        <a href="${card.link}" target="_blank" rel="noopener" class="project-card">
+                            <div class="project-image-container">
+                                <img src="${card.image}" alt="${card.alt}" class="project-image" loading="lazy">
+                                <div class="project-overlay"><span class="view-btn">View Project</span></div>
+                            </div>
+                        </a>
+                    `).join('')}
                 </div>
-                <h3 style="color: var(--text-light); margin-bottom: 1rem;">Unable to Load Projects</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                    ${error.message || 'There was an error loading the project data.'}
-                </p>
-                <div style="display: flex; gap: 1rem; justify-content: center;">
-                    <button onclick="loadProjects()" class="btn btn-primary">
-                        <i class="fas fa-redo"></i> Try Again
-                    </button>
-                    <button onclick="location.reload()" class="btn btn-secondary">
-                        <i class="fas fa-sync"></i> Reload Page
-                    </button>
+                <p class="project-description">${project.description}</p>
+            `;
+            container.appendChild(div);
+        });
+        document.querySelectorAll('.project.animate-on-scroll').forEach(el => observer.observe(el));
+    } catch (err) {
+        console.error('Projects load error:', err);
+        container.innerHTML = '<p class="error">Unable to load projects.</p>';
+    }
+}
+
+// Load Work Experience from JSON
+async function loadExperience() {
+    const container = document.getElementById('experience-container');
+    if (!container) return;
+    try {
+        const res = await fetch('data/work-experience.json');
+        const experiences = await res.json();
+        container.innerHTML = '';
+        experiences.forEach((exp, i) => {
+            const div = document.createElement('div');
+            div.className = 'experience-card glass-card animate-on-scroll';
+            div.style.animationDelay = `${i * 0.1}s`;
+            div.innerHTML = `
+                <div class="exp-header">
+                    <div>
+                        <h3 class="exp-title">${exp.title}</h3>
+                        <div class="exp-company">${exp.company}</div>
+                    </div>
+                    <div class="exp-period">${exp.period}</div>
                 </div>
-            </div>
-        `;
+                <div class="exp-description">${exp.description}</div>
+                <div class="exp-tech">
+                    ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                </div>
+            `;
+            container.appendChild(div);
+        });
+        document.querySelectorAll('.experience-card').forEach(el => observer.observe(el));
+    } catch (err) {
+        console.error('Experience load error:', err);
+        container.innerHTML = '<p class="error">Work experience data unavailable.</p>';
     }
 }
 
-// ===== Initialize Everything with Projects Priority =====
+// Init
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Portfolio initializing with projects priority...');
-    
-    // Initialize preloader first
-    initPreloader();
-    
-    // Load projects FIRST before other animations
-    setTimeout(() => {
-        loadProjects().then(() => {
-            console.log('✅ Projects loaded successfully');
-        }).catch(err => {
-            console.error('❌ Failed to load projects:', err);
-        });
-    }, 100);
-    
-    // Initialize other features
-    initMobileMenu();
-    initSmoothScroll();
-    initBackToTop();
-    initNavbarScroll();
-    initParallax();
-    initParticles();
-    initTypingEffect();
-    initCursorEffect();
-    initScrollAnimations();
-    
-    console.log('✨ Portfolio ready!');
+    loadProjects();
+    loadExperience();
 });
-
-// ===== Add manual reload function =====
-window.reloadProjects = loadProjects;
-
-// ===== Force projects visibility on window load =====
-window.addEventListener('load', () => {
-    // Ensure projects section is visible
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-        projectsSection.style.opacity = '1';
-        projectsSection.style.visibility = 'visible';
-        projectsSection.style.transform = 'translateY(0)';
-    }
-    
-    // Double-check projects after 2 seconds
-    setTimeout(() => {
-        const projectsContainer = document.getElementById('projects-container');
-        if (projectsContainer && projectsContainer.children.length === 0) {
-            console.log('⚠️ No projects found, retrying...');
-            loadProjects();
-        }
-    }, 2000);
-});
-
-// ===== Smooth Scrolling =====
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const target = document.querySelector(targetId);
-            if (target) {
-                const offset = 80; // Navbar height
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = targetPosition - offset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-                
-                // Update active nav link
-                navLinks.forEach(link => link.classList.remove('active'));
-                this.classList.add('active');
-            }
-        });
-    });
-}
-
-// ===== Back to Top =====
-function initBackToTop() {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-    
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-// ===== Scroll Animations =====
-function initScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    });
-    
-    // Observe all elements with animation class
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        observer.observe(el);
-    });
-}
-
-// ===== Navbar Scroll Effect =====
-function initNavbarScroll() {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        // Update active nav link based on scroll position
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPos = window.scrollY + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    });
-}
-
-// ===== Particle Animation =====
-function initParticles() {
-    const particlesContainer = document.querySelector('.particles');
-    if (!particlesContainer) return;
-    
-    // Create particle elements
-    for (let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 3 + 1}px;
-            height: ${Math.random() * 3 + 1}px;
-            background: rgba(127, 85, 177, ${Math.random() * 0.3 + 0.1});
-            border-radius: 50%;
-            top: ${Math.random() * 100}%;
-            left: ${Math.random() * 100}%;
-            animation: particleFloat ${Math.random() * 20 + 10}s infinite linear;
-        `;
-        particlesContainer.appendChild(particle);
-    }
-}
-
-// Add particle animation keyframes
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes particleFloat {
-        0% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-        }
-        90% {
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// ===== Typing Effect for Hero =====
-function initTypingEffect() {
-    const heroTitle = document.querySelector('.hero-title');
-    if (!heroTitle) return;
-    
-    const text = heroTitle.textContent;
-    heroTitle.textContent = '';
-    
-    let i = 0;
-    const typeWriter = () => {
-        if (i < text.length) {
-            heroTitle.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-        }
-    };
-    
-    // Start typing after a delay
-    setTimeout(typeWriter, 1000);
-}
-
-// ===== Parallax Effect =====
-function initParallax() {
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        const bgElements = document.querySelectorAll('.blob');
-        bgElements.forEach((element, index) => {
-            element.style.transform = `translateY(${rate * (index + 1) * 0.3}px)`;
-        });
-    });
-}
-
-// ===== Cursor Effect =====
-function initCursorEffect() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    document.body.appendChild(cursor);
-    
-    const cursorFollower = document.createElement('div');
-    cursorFollower.className = 'cursor-follower';
-    document.body.appendChild(cursorFollower);
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        setTimeout(() => {
-            cursorFollower.style.left = e.clientX + 'px';
-            cursorFollower.style.top = e.clientY + 'px';
-        }, 100);
-    });
-    
-    // Add cursor styles
-    const cursorStyle = document.createElement('style');
-    cursorStyle.textContent = `
-        .cursor {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.2s ease;
-        }
-        
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(127, 85, 177, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
-        }
-        
-        a:hover ~ .cursor,
-        button:hover ~ .cursor {
-            transform: scale(1.5);
-        }
-        
-        a:hover ~ .cursor-follower,
-        button:hover ~ .cursor-follower {
-            transform: scale(0.5);
-            background: rgba(127, 85, 177, 0.2);
-        }
-    `;
-    document.head.appendChild(cursorStyle);
-}
-
-// ===== Preloader =====
-function initPreloader() {
-    const preloader = document.createElement('div');
-    preloader.className = 'preloader';
-    preloader.innerHTML = `
-        <div class="loading">
-            <div></div>
-            <div></div>
-        </div>
-        <p>Loading Portfolio...</p>
-    `;
-    document.body.prepend(preloader);
-    
-    // Add preloader styles
-    const preloaderStyle = document.createElement('style');
-    preloaderStyle.textContent = `
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark-bg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        
-        .preloader p {
-            color: var(--text-light);
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            animation: pulse 2s infinite;
-        }
-    `;
-    document.head.appendChild(preloaderStyle);
-    
-    // Hide preloader when page loads
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            preloader.style.visibility = 'hidden';
-        }, 1000);
-    });
-}
-
-// ===== Initialize Everything =====
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Portfolio initializing...');
-    
-    // Initialize preloader first
-    initPreloader();
-    
-    // Initialize all features
-    initMobileMenu();
-    initSmoothScroll();
-    initBackToTop();
-    initNavbarScroll();
-    initParallax();
-    initParticles();
-    initTypingEffect();
-    initCursorEffect();
-    
-    // Load projects and initialize animations
-    setTimeout(() => {
-        loadProjects();
-        initScrollAnimations();
-    }, 500);
-    
-    console.log('✨ Portfolio ready!');
-    
-    // Add performance monitoring
-    if ('performance' in window) {
-        const perfData = performance.getEntriesByType('navigation')[0];
-        console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-    }
-});
-
-// ===== Window Resize Handler =====
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        // Reinitialize animations on resize
-        initScrollAnimations();
-    }, 250);
-});
-
-// ===== Error Handling =====
-window.addEventListener('error', (e) => {
-    console.error('Global error caught:', e.error);
-});
-
-// ===== Export for testing =====
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        initMobileMenu,
-        loadProjects,
-        initScrollAnimations,
-        initNavbarScroll,
-        initParticles,
-        initTypingEffect
-    };
-}
