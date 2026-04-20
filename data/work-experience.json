@@ -1,16 +1,58 @@
 [
-    {
-        "title": "Full-Stack Developer",
-        "company": "Freelance / Self-Employed",
-        "period": "2024 – Present",
-        "description": "Designing and developing responsive web applications, iOS utilities, and Windows desktop tools. Collaborated with clients to deliver MVPs and scalable solutions.",
-        "technologies": ["C#", "Swift", "Python", "Flutter", "React", "SQLite"]
-    },
-    {
-        "title": "Junior Developer (Internship)",
-        "company": "TechStudio Pakistan",
-        "period": "2023 – 2024",
-        "description": "Assisted in building internal tools, performed bug fixes, and contributed to front-end components. Gained hands-on experience with agile workflows and version control.",
-        "technologies": ["JavaScript", "HTML/CSS", "Git", "ASP.NET Core", "MySQL"]
-    }
+  {
+    "id": 1,
+    "title": "iOS Developer",
+    "company": "National Science & Technology Park (NSTP)",
+    "type": "Full-time",
+    "startDate": "Oct 2025",
+    "endDate": "Present",
+    "period": "Oct 2025 - Present",
+    "duration": "7 months",
+    "location": "Islamabad, Pakistan",
+    "locationType": "On-site",
+    "description": "Developing and maintaining iOS applications with focus on user experience and performance optimization. Collaborating with cross-functional teams to deliver high-quality mobile solutions.",
+    "skills": ["iOS Development", "Swift", "UIKit", "SwiftUI", "API Integration"]
+  },
+  {
+    "id": 2,
+    "title": "iOS Developer",
+    "company": "3TechSoft",
+    "type": "Internship",
+    "startDate": "Aug 2025",
+    "endDate": "Oct 2025",
+    "period": "Aug 2025 - Oct 2025",
+    "duration": "3 months",
+    "location": "Rawalpindi, Pakistan",
+    "locationType": "On-site",
+    "description": "Focused on building practical iOS mobile applications to deliver real-world solutions. Added new features to existing projects and improved app functionality.",
+    "skills": ["iOS Development", "Swift", "SwiftUI", "Mobile Apps"]
+  },
+  {
+    "id": 3,
+    "title": "Freelance Developer",
+    "company": "Self-employed",
+    "type": "Self-employed",
+    "startDate": "Jun 2023",
+    "endDate": "Present",
+    "period": "Jun 2023 - Present",
+    "duration": "2 years 11 months",
+    "location": "Remote",
+    "locationType": "Remote",
+    "description": "Designed and developed responsive websites and administrative dashboards tailored to client requirements. Specialized in full-stack development with focus on scalability and user experience.",
+    "skills": ["Python", "Full-Stack Development", "Web Design", "Database Design", "API Development", "React", "JavaScript", "CSS"]
+  },
+  {
+    "id": 4,
+    "title": "iOS Developer",
+    "company": "Ten Bucks Solutions",
+    "type": "Internship",
+    "startDate": "Mar 2025",
+    "endDate": "May 2025",
+    "period": "Mar 2025 - May 2025",
+    "duration": "3 months",
+    "location": "Islamabad, Pakistan",
+    "locationType": "Remote",
+    "description": "Developed iOS apps in Swift, applying clean coding practices with functions, optionals, closures, and protocols. Implemented modern development patterns and best practices.",
+    "skills": ["Mobile Applications", "iOS Development", "Swift", "Clean Code"]
+  }
 ]
